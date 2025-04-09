@@ -19,17 +19,13 @@ import {
   PaymentHistoryIcon,
   MinLogo,
 } from "../components/assets/icons/icon";
-
-import SupportImage from "../components/assets/icons/support-image.svg";
-import SupportButton from "../components/assets/icons/support-button.svg";
 import SearchIcon from "../components/assets/icons/Search.svg";
-import NotificationIcon from "../components/assets/icons/notification.svg";
+
 import { Drawer, Dropdown, Empty } from "antd";
 import { LuCalendarClock } from "react-icons/lu";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { AiOutlineNotification } from "react-icons/ai";
 import { HiClipboardDocument } from "react-icons/hi2";
-// import SupportModal from "./ui/SupportModal";
 
 function Layout() {
   const location = useLocation();
@@ -299,22 +295,7 @@ function Layout() {
             </Link>
           </div>
           <div className="flex items-center justify-center w-full">
-            {/* <div className="relative w-[168px] h-[168px] bg-[#01A1B7]/10 rounded-[24px] px-[20px] py-[26px] flex items-end">
-              <img
-                className="absolute left-[18px] bottom-[90px]"
-                src={SupportImage}
-                alt="support image"
-              />
-              <Link to={"https://t.me/repidsupportbot"} target="_blank">
-                <button
-                  type="button"
-                  className="bg-primary hover:bg-primary/85 duration-150 w-full rounded-[14px] px-4 h-[48px] flex items-center justify-between"
-                >
-                  <img src={SupportButton} alt="sms icon" />
-                  <span className="font-semibold text-white">Support</span>
-                </button>
-              </Link>
-            </div> */}
+           
           </div>
         </div>
 
@@ -402,32 +383,9 @@ function Layout() {
             </div>
             <div className="flex items-center gap-[18px]">
               <div className="flex items-center gap-3">
-                {/* <button
-                  type="button"
-                  className={`text-lg font-medium duration-150 ${
-                    i18n?.language === "uz" ? "text-textColor" : "text-gray-400"
-                  }`}
-                  onClick={() => changeLanguage("uz")}
-                >
-                  Uz
-                </button>
-                <button
-                  type="button"
-                  className={`text-lg font-medium duration-150 ${
-                    i18n?.language === "ru" ? "text-textColor" : "text-gray-400"
-                  }`}
-                  onClick={() => changeLanguage("ru")}
-                >
-                  Ру
-                </button> */}
+               
               </div>
-              {/* <button
-                type="button"
-                className="w-11 h-11 relative rounded-full bg-[#F1F5F9] flex items-center justify-center"
-              >
-                <img src={NotificationIcon} alt="notification icon" />
-                <div className="absolute top-3 right-3 w-[6px] h-[6px] bg-[#F43F5E] rounded-full" />
-              </button> */}
+             
               <div>
                 <svg
                   width="1"
@@ -454,7 +412,7 @@ function Layout() {
                         src={
                           userInfo?.profile_image.slice(0, 4) == "http"
                             ? userInfo?.profile_image
-                            : `https://api.repid.uz${userInfo?.profile_image}`
+                            : `${userInfo?.profile_image}`
                         }
                         alt="profile image"
                         className="w-full h-full object-cover rounded-full"
@@ -472,252 +430,7 @@ function Layout() {
           </div>
           {/* Mobile Header */}
           <div className="w-full sticky top-0 px-[10px] pt-[10px] mb-6 lg:hidden z-[1000]">
-            {/* <div
-              className={`h-[70px] flex items-center justify-between duration-200 bg-white rounded-[24px] p-[15px] ${
-                isScrolled && "shadow-[0_3px_15px_#00000038]"
-              }`}
-            >
-              <Link to="/">
-                <MinLogo />
-              </Link>
-              <div className="flex items-center gap-6">
-                <button onClick={() => setOpenSearch(true)}>
-                  <img src={SearchIcon} alt="search icon" />
-                </button>
-                <button onClick={() => setOpenDrawer(true)}>
-                  <RiMenu3Fill color="#64748B" size={24} />
-                </button>
-              </div>
-              <Drawer
-                title={
-                  <div className="flex items-center justify-between pt-3">
-                    <div className="w-[280px] relative">
-                      <div className="absolute top-0 left-0 w-[24px] h-[24px] bg-[#F1F5F9] rounded-full flex items-center justify-center">
-                        <img src={SearchIcon} alt="search icon" />
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="Qidiruv..."
-                        className="w-full outline-none pl-10"
-                        ref={searchInputRef}
-                        onChange={(e) => {
-                          getSearchData(e);
-                          setSearchValue(e.target.value);
-                        }}
-                        value={searchValue}
-                      />
-                    </div>
-                    <button onClick={() => setOpenSearch(false)}>
-                      <IoMdClose color="#64748B" size={26} />
-                    </button>
-                  </div>
-                }
-                closeIcon={false}
-                onClose={() => setOpenSearch(false)}
-                open={openSearch}
-                width={1024}
-              >
-                <div className={`w-full ${searchValue == "" && "hidden"}`}>
-                  {employeeList?.map((item) => (
-                    <button
-                      onClick={() => {
-                        navigate("/employees", { state: item }),
-                          setSearchValue("");
-                        setOpenSearch(false);
-                        setSearchValue("");
-                      }}
-                      key={item.id}
-                      className={`flex w-full items-start active:bg-black/5 duration-200 rounded-lg p-2 ${
-                        item.type == "admin" && "hidden"
-                      }`}
-                    >
-                      <span className="text-textColor font-medium text-lg">
-                        {item.first_name} {item.last_name}
-                      </span>
-                    </button>
-                  ))}
-                  {searchData.products?.map((item) => (
-                    <button
-                      onClick={() => {
-                        navigate("/products", { state: item }),
-                          setOpenDropdown(false),
-                          setOpenSearch(false);
-                        setSearchValue("");
-                      }}
-                      key={item.id}
-                      className="flex w-full items-start active::bg-black/5 duration-200 rounded-lg p-2 text-textColor font-medium text-lg"
-                    >
-                      {item.name_uz}
-                    </button>
-                  ))}
-                  {searchData.foods?.map((item) => (
-                    <button
-                      onClick={() => {
-                        navigate("/food", { state: item }),
-                          setOpenDropdown(false);
-                        setOpenSearch(false);
-                        setSearchValue("");
-                      }}
-                      key={item.id}
-                      className="flex w-full items-start active:bg-black/5 duration-200 rounded-lg p-2 text-textColor font-medium text-lg"
-                    >
-                      {item.name}
-                    </button>
-                  ))}
-                </div>
-              </Drawer>
-              <Drawer
-                title={
-                  <div className="flex items-center justify-between pt-[9px]">
-                    <div>
-                      <Link onClick={() => setOpenDrawer(false)} to="/">
-                        <MinLogo />
-                      </Link>
-                    </div>
-                    <button onClick={() => setOpenDrawer(false)}>
-                      <IoMdClose color="#64748B" size={26} />
-                    </button>
-                  </div>
-                }
-                closeIcon={false}
-                onClose={() => setOpenDrawer(false)}
-                open={openDrawer}
-                width={600}
-              >
-                <div className="flex items-center gap-6 justify-center mb-8">
-                  {/* <button>
-                    <img src={NotificationIcon} alt="notification icon" />
-                  </button> */}
-            {/* <button
-                    onClick={() => {
-                      navigate("/profile");
-                      setOpenDrawer(false);
-                    }}
-                    className="w-11 h-11 rounded-full flex items-center justify-center bg-[#EEF0F4] shadow-[0_2px_5px_silver]"
-                  >
-                    {userInfo?.profile_image ? (
-                      <img
-                        src={
-                          userInfo?.profile_image.slice(0, 4) == "http"
-                            ? userInfo?.profile_image
-                            : `https://api.repid.uz${userInfo?.profile_image}`
-                        }
-                        alt="profile image"
-                        className="w-full h-full object-cover rounded-full"
-                      />
-                    ) : (
-                      <FaRegUser color="#64748B" size={22} />
-                    )}
-                  </button>
-                </div>
-                <div className="flex items-center justify-center flex-col gap-5">
-                  <Link to="/">
-                    <button
-                      onClick={() => setOpenDrawer(false)}
-                      className={`flex w-full text-lg items-center gap-3 font-medium duration-200 ${
-                        pathname == "/" ? "text-primary" : "text-textColor"
-                      }`}
-                    >
-                      {t("dashboard")}
-                    </button>
-                  </Link>
-                  <Link to="/employees">
-                    <button
-                      onClick={() => setOpenDrawer(false)}
-                      className={`flex w-full text-lg items-center gap-3 font-medium duration-200 ${
-                        pathname.slice(0, 10) === "/employees"
-                          ? "text-primary"
-                          : "text-textColor"
-                      }`}
-                    >
-                      {t("employees")}
-                    </button>
-                  </Link>
-                  <Link to="/food">
-                    <button
-                      onClick={() => setOpenDrawer(false)}
-                      className={`flex w-full text-lg items-center gap-3 font-medium duration-200 ${
-                        pathname == "/food" ? "text-primary" : "text-textColor"
-                      }`}
-                    >
-                      {t("foods")}
-                    </button>
-                  </Link>
-                  <Link to="/products">
-                    <button
-                      onClick={() => setOpenDrawer(false)}
-                      className={`flex w-full text-lg items-center gap-3 font-medium duration-200 ${
-                        pathname == "/products"
-                          ? "text-primary"
-                          : "text-textColor"
-                      }`}
-                    >
-                      {t("products")}
-                    </button>
-                  </Link>
-                  <Link to="/orders">
-                    <button
-                      onClick={() => setOpenDrawer(false)}
-                      className={`flex w-full text-lg items-center gap-3 font-medium duration-200 ${
-                        pathname == "/orders"
-                          ? "text-primary"
-                          : "text-textColor"
-                      }`}
-                    >
-                      {t("orders")}
-                    </button>
-                  </Link>
-                  <Link to="/payments">
-                    <button
-                      onClick={() => setOpenDrawer(false)}
-                      className={`flex w-full text-lg items-center gap-3 font-medium duration-200 ${
-                        pathname == "/payments"
-                          ? "text-primary"
-                          : "text-textColor"
-                      }`}
-                    >
-                      {t("payments")}
-                    </button>
-                  </Link>
-                  <Link to="/payments-history">
-                    <button
-                      onClick={() => setOpenDrawer(false)}
-                      className={`flex w-full text-lg items-center gap-3 font-medium duration-200 ${
-                        pathname == "/payments-history"
-                          ? "text-primary"
-                          : "text-textColor"
-                      }`}
-                    >
-                      {t("payments_history")}
-                    </button>
-                  </Link>
-                </div>
-                <div className="flex gap-4 justify-center mt-10">
-                  <button
-                    type="button"
-                    className={`text-xl font-medium duration-150 ${
-                      i18n?.language === "uz"
-                        ? "text-textColor"
-                        : "text-gray-400"
-                    }`}
-                    onClick={() => changeLanguage("uz")}
-                  >
-                    Uz
-                  </button>
-                  <button
-                    type="button"
-                    className={`text-xl font-medium duration-150 ${
-                      i18n?.language === "ru"
-                        ? "text-textColor"
-                        : "text-gray-400"
-                    }`}
-                    onClick={() => changeLanguage("ru")}
-                  >
-                    Ру
-                  </button>
-                </div>
-              </Drawer>
-            </div> */}
+           
           </div>
           {/* Content */}
           <main className="w-full px-5 md:px-10 pb-14 lg:overflow-auto">

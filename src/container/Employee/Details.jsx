@@ -17,12 +17,12 @@ import {
 function Details() {
   const data = {
     image: "/img/profilePic.jpg",
-    fullName: "Mavlon Turgunov",
+    fullName: "Asadbek Mirzakarimov",
     jobTitle: "Software Engineer",
     department: "IT",
-    empId: "00012220",
+    empId: "0001234",
     phone: "+998 90 123 45 67",
-    email: "mavlon@example.com",
+    email: "asadbek@example.com",
     address: "Tashkent, Uzbekistan",
     joined: "03.19.2023",
     salary: "$5000",

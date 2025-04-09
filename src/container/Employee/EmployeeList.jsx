@@ -32,7 +32,7 @@ function EmployeeList() {
       fullName: "John Doe",
       jobTitle: "Software Engineer",
       department: "IT",
-      empId: "00012220",
+      empId: "00012345",
       joined: "03.19.2023",
     },
     {
@@ -40,7 +40,7 @@ function EmployeeList() {
       fullName: "Alice Johnson",
       jobTitle: "HR Manager",
       department: "HR",
-      empId: "00012221",
+      empId: "0001234",
       joined: "05.12.2022",
     },
     {
@@ -48,7 +48,7 @@ function EmployeeList() {
       fullName: "David Smith",
       jobTitle: "Accountant",
       department: "Finance",
-      empId: "00012223",
+      empId: "00012345",
       joined: "07.20.2020",
     },
     {
@@ -56,7 +56,7 @@ function EmployeeList() {
       fullName: "Sarah White",
       jobTitle: "HR Specialist",
       department: "HR",
-      empId: "00012224",
+      empId: "00012345",
       joined: "02.05.2023",
     },
   ];
