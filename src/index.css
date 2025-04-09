@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  font-family: Inter, sans-serif;
+}
+
+.menu-button:hover .menu-button-icon {
+  transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+@font-face {
+  font-family: Inter;
+  src: url("/fonts/Inter_18pt-Regular.ttf");
+  font-weight: 400;
+  font-family: Inter;
+  src: url("/fonts/Inter_18pt-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url("/fonts/Inter_18pt-Medium.ttf");
+  font-weight: 500;
+  font-family: Inter;
+  src: url("/fonts/Inter_18pt-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url("/fonts/Inter_18pt-SemiBold.ttf");
+  font-weight: 600;
+  font-family: Inter;
+  src: url("/fonts/Inter_18pt-SemiBold.ttf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url("/fonts/Inter_18pt-Bold.ttf");
+  font-weight: 700;
+  font-family: Inter;
+  src: url("/fonts/Inter_18pt-Bold.ttf");
+  font-weight: 700;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0000001f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #01a1b7;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #038596;
+}
+
+.toggle-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch {
+  width: 50px;
+  height: 20px;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-switch::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #7a8699;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.toggle-checkbox:checked + .toggle-switch::before {
+  transform: translateX(30px);
+  background-color: #01a1b7;
+}
+
+::-webkit-scrollbar-track {
+  background: #0000001f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #01a1b7;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #038596;
+}
