@@ -1,77 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import EmployeeCard from "./EmployeeCard";
 import { useLocation, useNavigate } from "react-router-dom";
 import DeleteEmployee from "./DeleteEmployee";
 import { Button, Select } from "antd";
+import request from "../../components/config";
 
 const { Option } = Select;
 
 function EmployeeList() {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
-  const [employees, setEmployees] = useState([]);
+  const [data, setData] = useState([]);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
-  const [selectedDepartment, setSelectedDepartment] = useState(""); // Department filter state
-  const location = useLocation();
-
-  const handleOpenDeleteModal = (id) => {
-    setSelectedEmployeeId(id);
-    setOpenModal(true);
-  };
-
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const handleEmployeeDeletion = (id) => {
-    setEmployees((prevEmployees) =>
+    setData((prevEmployees) =>
       prevEmployees.filter((employee) => employee.id !== id)
     );
   };
+  const getData = async () => {
+    try {
+      const res = await request.get(`/user/user/list/`);
+      setData(res?.data.splice(1, 4));
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const data = [
-    {
-      image: "img/profilePic.jpg",
-      fullName: "John Doe",
-      jobTitle: "Software Engineer",
-      department: "IT",
-      empId: "00012345",
-      joined: "03.19.2023",
-    },
-    {
-      image: "./img/profilePic.jpg",
-      fullName: "Alice Johnson",
-      jobTitle: "HR Manager",
-      department: "HR",
-      empId: "0001234",
-      joined: "05.12.2022",
-    },
-    {
-      image: "./img/profilePic.jpg",
-      fullName: "David Smith",
-      jobTitle: "Accountant",
-      department: "Finance",
-      empId: "00012345",
-      joined: "07.20.2020",
-    },
-    {
-      image: "./img/profilePic.jpg",
-      fullName: "Sarah White",
-      jobTitle: "HR Specialist",
-      department: "HR",
-      empId: "00012345",
-      joined: "02.05.2023",
-    },
-  ];
+  useEffect(() => {
+    getData();
+  }, []);
+
   const filteredEmployees = selectedDepartment
     ? data.filter((emp) => emp.department === selectedDepartment)
     : data;
 
   return (
     <div>
-      <DeleteEmployee
-        isOpen={openModal}
-        close={() => setOpenModal(false)}
-        id={selectedEmployeeId}
-        onDeleteSuccess={handleEmployeeDeletion}
-      />
       <div className="md:h-20 flex gap-4 md:items-center items-start flex-col md:flex-row justify-between mb-[30px]">
         <h1 className="text-[22px] md:text-3xl font-bold text-textColor">
           Employee List
@@ -103,7 +70,7 @@ function EmployeeList() {
           <EmployeeCard
             key={index}
             data={emp}
-            handleOpenDeleteModal={handleOpenDeleteModal}
+            handleDeleteCallback={handleEmployeeDeletion}
           />
         ))}
       </div>

@@ -3,14 +3,14 @@ import { Button, Modal } from "antd";
 import { useNotification } from "../../components/ui/Notification";
 import request from "../../components/config";
 
-const DeleteEmployee = ({ isOpen, close, id, onDeleteSuccess }) => {
+const DeleteEmployee = ({ isOpen, handleClose, id, onDeleteSuccess }) => {
   const [buttonLoading, setButtonLoading] = useState(false);
   const { openNotification } = useNotification();
 
   const handleDelete = async () => {
     setButtonLoading(true);
     try {
-      await request.delete(`/crm/employee/${id}/delete/`);
+      await request.delete(`/user/user/${id}/delete/`);
       openNotification("success", "delete_success");
       onDeleteSuccess(id);
       close();
@@ -21,12 +21,20 @@ const DeleteEmployee = ({ isOpen, close, id, onDeleteSuccess }) => {
       setButtonLoading(false);
     }
   };
+
+  console.log(id);
   return (
     <>
-      <Modal open={isOpen} onCancel={close} centered footer={false} width={400}>
+      <Modal
+        open={isOpen}
+        onCancel={handleClose}
+        centered
+        footer={false}
+        width={400}
+      >
         <p className="text-lg mb-5">Employee deleted successfully</p>
         <div className="flex items-center gap-3 justify-end">
-          <Button size="large" onClick={close}>
+          <Button size="large" onClick={handleClose}>
             No
           </Button>
           <Button

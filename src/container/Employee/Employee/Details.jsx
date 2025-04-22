@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -13,23 +13,14 @@ import {
   PolarRadiusAxis,
   CartesianGrid,
 } from "recharts";
+import request from "../../components/config";
+import { useParams } from "react-router-dom";
 
 function Details() {
-  const data = {
-    image: "/img/profilePic.jpg",
-    fullName: "Asadbek Mirzakarimov",
-    jobTitle: "Software Engineer",
-    department: "IT",
-    empId: "0001234",
-    phone: "+998 90 123 45 67",
-    email: "asadbek@example.com",
-    address: "Tashkent, Uzbekistan",
-    joined: "03.19.2023",
-    salary: "$5000",
-    gender: "Male",
-    dob: "1998-06-15",
-    employmentType: "Full-Time",
-    emergencyContact: "+998 90 765 43 21",
+  const { id } = useParams();
+  const [data, setData] = useState([]);
+
+  const data1 = {
     absenteeData: [
       { month: "Jan", absences: 2 },
       { month: "Feb", absences: 3 },
@@ -54,6 +45,21 @@ function Details() {
     ],
   };
 
+  const getData = async () => {
+    try {
+      const res = await request.get(`/user/user/${id}`);
+      setData(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(id);
+
   return (
     <div>
       {/* Header */}
@@ -68,7 +74,7 @@ function Details() {
         {/* Left Side - Profile Picture */}
         <div>
           <img
-            src={data.image}
+            src={data.profile_image}
             alt="Profile Pic"
             className="rounded-full h-24 w-24 md:h-44 md:w-44 object-cover border-8 border-primary"
           />
@@ -77,17 +83,18 @@ function Details() {
         {/* Right Side - Employee Details */}
         <div className="grid grid-cols-2 text-gray-700 gap-x-10 gap-y-3">
           <p>
-            <span className="font-semibold">Full Name:</span> {data.fullName}
+            <span className="font-semibold">Full Name:</span>
+            {data.last_name} {data.first_name}
           </p>
           <p>
-            <span className="font-semibold">Job Title:</span> {data.jobTitle}
+            <span className="font-semibold">Job Title:</span> {data.job_title}
           </p>
           <p>
             <span className="font-semibold">Department:</span> {data.department}
           </p>
-          <p>
+          {/* <p>
             <span className="font-semibold">Employee ID:</span> {data.empId}
-          </p>
+          </p> */}
           <p>
             <span className="font-semibold">Phone:</span> {data.phone}
           </p>
@@ -98,7 +105,8 @@ function Details() {
             <span className="font-semibold">Address:</span> {data.address}
           </p>
           <p>
-            <span className="font-semibold">Joined Date:</span> {data.joined}
+            <span className="font-semibold">Joined Date:</span>{" "}
+            {data.joined_date}
           </p>
           <p>
             <span className="font-semibold">Salary:</span> {data.salary}
@@ -107,15 +115,16 @@ function Details() {
             <span className="font-semibold">Gender:</span> {data.gender}
           </p>
           <p>
-            <span className="font-semibold">Date of Birth:</span> {data.dob}
+            <span className="font-semibold">Date of Birth:</span>
+            {data.date_of_birth}
           </p>
           <p>
-            <span className="font-semibold">Employment Type:</span>{" "}
-            {data.employmentType}
+            <span className="font-semibold">Employment Type:</span>
+            {data.employment_type}
           </p>
           <p>
             <span className="font-semibold">Emergency Contact:</span>{" "}
-            {data.emergencyContact}
+            {data.contact}
           </p>
         </div>
       </div>
@@ -123,7 +132,7 @@ function Details() {
         <div className="">
           <h2 className="text-lg font-semibold mb-2">Absentee Rate</h2>
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data.absenteeData}>
+            <LineChart data={data1.absenteeData}>
               <CartesianGrid strokeDasharray="0" vertical={true} />
               <XAxis dataKey="month" />
               <YAxis />
@@ -142,7 +151,7 @@ function Details() {
         <div className="">
           <h2 className="text-lg font-semibold mb-2">Performance Review</h2>
           <ResponsiveContainer width="100%" height={500}>
-            <RadarChart data={data.performanceData}>
+            <RadarChart data={data1.performanceData}>
               <PolarGrid />
               <PolarAngleAxis dataKey="aspect" />
               <PolarRadiusAxis angle={30} domain={[0, 100]} />
