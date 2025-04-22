@@ -17,6 +17,7 @@ import Payments from "../../pages/payments";
 import Vacancies from "../../pages/vacancies";
 import Applications from "../../pages/applications";
 import Request from "../../pages/request";
+import EditEmployee from "../container/Employee/EditEmployee";
 
 const index = () => {
   const router = createBrowserRouter(
@@ -35,12 +36,13 @@ const index = () => {
           <Route path="/" element={<Dashboard />} />
           <Route path="/employees" element={<Employees />} />
           <Route path="/employees/add" element={<AddEmployee />} />
-          <Route path="/employees/details" element={<Details />} />
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/payments" element={<Payments />} />
           <Route path="/vacancies" element={<Vacancies />} />
           <Route path="/application" element={<Applications />} />
           <Route path="/leave-request" element={<Request />} />
+          <Route path="/user/user/:id" element={<Details />} />
+          <Route path="/user/user/:id/update/" element={<EditEmployee />} />
         </Route>
       </Route>
     )
